@@ -1,14 +1,26 @@
 
+/**=====================================================================================
+  @brief        ACM_ICPC2008_WorldFinal_F
+  @author       bianqr
+  @date         2019/11/20
+  @description  将(n+4)/2(=r)个R与(n-4)/2(=o)个O组合,要求O不能同时出现且首尾不能同时为O
+				动态规划寻找出逆推关系,自底向上得出所有的结果
+				dp[i][j][k]表示还剩i个R，还剩j对相邻的R,k表示以R还是O开头
+				  递推关系：dp[i][j][k] = dp[i-1][j][k](向后面插入一对OR,没有增加相邻的R)
+				+dp[i-1][j-1][k](如果还有相邻的R<j>0>则也可能向后面插入R)
+				  边界情况：dp[1][0][0]=dp[1][0][1]=1(分别还剩R和OR)			
+----------------------------------------------------------------------------------------
+**/
 #include<iostream>
 using namespace std;
 
 #define N 1000
-long long dp[N+1][5][2];  //dp[i][j][k]表示一共有i个R,j对相邻的R，k=0表示R开头，=1表示1开头
+long long dp[N+1][5][2];  //dp[i][j][k]表示还剩下i个R,还有j对相邻的R(一共有四对)，k=0表示R开头，=1表示1开头
 
 int main()
 {
 	int number, index = 1;
-	long long caseNum;
+	long long caseNum,r;
 
 	dp[1][0][1] = 1;       //OR 开头
 	dp[1][0][0] = 1;       //R  开头
@@ -35,7 +47,7 @@ int main()
 			caseNum = 1;
 		else
 		{
-			long long r = (number + 4) / 2;
+			r = (number + 4) / 2;
 			caseNum = dp[r][3][0] + dp[r][4][0] + dp[r][4][1];
 		}
 		cout << "Case " << index++ << ": " << caseNum << endl;
