@@ -15,7 +15,7 @@
 using namespace std;
 
 #define N 1000
-long long dp[(N+4)/2+1][5][2];  //dp[i][j][k]表示还剩下i个R,还有j对相邻的R(一共有四对)，k=0表示R开头，=1表示1开头
+long long dp[(N+4)/2+1][5][2];  //输入测试数据0-1000,R有(N+4)/2个
 
 int main()
 {
